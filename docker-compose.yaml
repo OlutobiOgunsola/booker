@@ -1,0 +1,30 @@
+services:
+  postgres:
+    container_name: postgres-olutobi-booker
+    image: postgres
+    environment:
+      POSTGRES_USER: tobi
+      POSTGRES_PASSWORD: tobi4ever
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: booker_network
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - 5432:5432
+    networks:
+      - spring-booker
+    restart: unless-stopped
+  mail-dev:
+    container_name: mail-dev-booker
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+
+networks:
+  spring-booker:
+    driver: bridge
+
+volumes:
+  postgres:
+    driver: local
