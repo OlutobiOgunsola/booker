@@ -1,5 +1,7 @@
 package com.tobi.booker.user;
 
+import com.tobi.booker.book.Book;
+import com.tobi.booker.history.BookTransactionHistory;
 import com.tobi.booker.roles.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -57,6 +59,11 @@ public class User implements UserDetails, Principal {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books;
+
+    @OneToMany(mappedBy="user")
+    private List<BookTransactionHistory> histories;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
